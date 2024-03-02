@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/tallyto/curso-go/matematica"
 )
 
@@ -14,4 +15,7 @@ func main() {
 	carro := matematica.Carro{Marca: "Fiat"}
 	fmt.Println(carro.Marca)
 	fmt.Println(carro.Andar())
+
+	fmt.Println(uuid.New())
+
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/google/uuid"
@@ -42,6 +43,14 @@ func main() {
 		panic(err)
 	}
 
+	p, err := selectProduct(db, product.ID)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("Product: %v, possui o preço de R$ %.2f", p.Name, p.Price)
+
 }
 
 func insertProduct(db *sql.DB, product *Product) error {
@@ -72,4 +81,22 @@ func updateProduct(db *sql.DB, product *Product) error {
 	}
 
 	return nil
+}
+
+func selectProduct(db *sql.DB, id string) (*Product, error) {
+	stmt, err := db.Prepare("SELECT id, name, price FROM products WHERE id = ?")
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	var product Product
+	// é possível utilizar o context em uma query ex: (a query deverá ser executada em até 10s)
+	// stmt.QueryRowContext(ctx, id)
+	err = stmt.QueryRow(id).Scan(&product.ID, &product.Name, &product.Price)
+	if err != nil {
+		return nil, err
+	}
+
+	return &product, nil
 }

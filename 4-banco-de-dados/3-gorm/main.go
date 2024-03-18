@@ -71,13 +71,28 @@ func main() {
 
 	// where
 
-	var products []Product
+	// var products []Product
 	// db.Limit(2).Find(&products)
 	// db.Limit(2).Offset(2).Find(&products)
 	// db.Where("price > ?", 1000).Find(&products)
-	db.Where("name LIKE ?", "%k%").Find(&products)
+	// db.Where("name LIKE ?", "%k%").Find(&products)
 
-	for _, product := range products {
-		fmt.Println(product)
-	}
+	// for _, product := range products {
+	// 	fmt.Println(product)
+	// }
+
+	// update
+
+	var p Product
+	db.First(&p, 1)
+	p.Name = "New Mouse"
+	db.Save(&p)
+
+	var p2 Product
+	db.First(&p2, 1)
+	fmt.Println(p2)
+
+	// delete
+
+	db.Delete(&p2)
 }

@@ -61,12 +61,23 @@ func main() {
 
 	// select all
 
-	var products []Product
+	// var products []Product
 
-	db.Find(&products)
+	// db.Find(&products)
+
+	// for _, product := range products {
+	// 	fmt.Println(product)
+	// }
+
+	// where
+
+	var products []Product
+	// db.Limit(2).Find(&products)
+	// db.Limit(2).Offset(2).Find(&products)
+	// db.Where("price > ?", 1000).Find(&products)
+	db.Where("name LIKE ?", "%k%").Find(&products)
 
 	for _, product := range products {
 		fmt.Println(product)
 	}
-
 }

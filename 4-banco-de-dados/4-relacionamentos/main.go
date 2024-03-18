@@ -42,15 +42,17 @@ func main() {
 	db.AutoMigrate(&Product{}, &Category{}, &SerialNumber{})
 
 	// create category
-	category := Category{Name: "Eletronics"}
-	db.Create(&category)
+
+	// category := Category{Name: "Eletronics"}
+	// db.Create(&category)
 
 	// create product
-	db.Create(&Product{
-		Name:       "Mouse",
-		Price:      2000,
-		CategoryID: category.ID,
-	})
+
+	// db.Create(&Product{
+	// 	Name:       "Mouse",
+	// 	Price:      2000,
+	// 	CategoryID: category.ID,
+	// })
 
 	// create serial number
 
@@ -69,7 +71,7 @@ func main() {
 
 	var categories []Category
 
-	err = db.Model(&Category{}).Preload("Products").Find(&categories).Error
+	err = db.Model(&Category{}).Preload("Products").Preload("Products.SerialNumber").Find(&categories).Error
 	if err != nil {
 		panic(err)
 	}
@@ -77,7 +79,7 @@ func main() {
 	for _, category := range categories {
 		fmt.Println(category.Name, ":")
 		for _, product := range category.Products {
-			fmt.Println(" -", product.Name)
+			fmt.Println(" -", product.Name, "Serial Number: ", product.SerialNumber.Number)
 		}
 	}
 

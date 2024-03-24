@@ -34,3 +34,17 @@ func TestCalculateTaxBatch(t *testing.T) {
 		}
 	}
 }
+
+// Executa um teste de performance
+func BenchmarkCalculateTax(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CalculateTax(500.0)
+	}
+}
+
+// Função mais lenta
+func BenchmarkCalculateTax2(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		CalculateTax2(500.0)
+	}
+}

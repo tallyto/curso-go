@@ -41,3 +41,19 @@ go test -bench=. -run=^# -count=10
 ```bash
 go test -bench=. -run=^# -count=10 -benchtime=3s
 ```
+
+# Testes com valores aleatórios 
+
+```bash
+ go test -fuzz=.
+```
+
+# Executa fuzzing ignorando os testes
+```bash
+go test -fuzz=. -run=^#
+```
+
+# Executa fuzzing ignorando os testes por 5s
+```bash
+go test -fuzz=. -fuzztime=5s -run=^#
+```

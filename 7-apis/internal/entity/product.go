@@ -28,7 +28,7 @@ func (p *Product) Validate() error {
 		return ErrNameIsRequired
 	}
 
-	if p.Price <= 0 {
+	if p.Price < 0 {
 		return ErrPriceIsInvalid
 	}
 

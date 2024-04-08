@@ -74,7 +74,7 @@ func TestFindProductByID(t *testing.T) {
 	db.Create(product)
 
 	productDB := NewProduct(db)
-	product, err = productDB.FindById(product.ID.String())
+	product, err = productDB.FindByID(product.ID.String())
 	assert.NoError(t, err)
 	assert.Equal(t, "Product 1", product.Name)
 }
@@ -95,7 +95,7 @@ func TestUpdateProduct(t *testing.T) {
 	product.Name = "Product 2"
 	err = productDB.Update(product)
 	assert.NoError(t, err)
-	product, err = productDB.FindById(product.ID.String())
+	product, err = productDB.FindByID(product.ID.String())
 	assert.NoError(t, err)
 	assert.Equal(t, "Product 2", product.Name)
 }
@@ -116,6 +116,6 @@ func TestDeleteProduct(t *testing.T) {
 	err = productDB.Delete(product.ID.String())
 	assert.NoError(t, err)
 
-	_, err = productDB.FindById(product.ID.String())
+	_, err = productDB.FindByID(product.ID.String())
 	assert.Error(t, err)
 }
